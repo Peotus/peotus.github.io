@@ -1,0 +1,65 @@
+@keyframes colorchange{
+      0%   {fill: #84DD63;border-color: #84DD63;}
+			20%  {fill: #6BAA75;border-color: #6BAA75;}
+      40%  {fill: #CBFF4D;border-color: #CBFF4D;}
+      60%  {fill: #545454;border-color: #545454;}
+			80%  {fill: #69747C;border-color: #69747C;}
+      100%   {fill: #84DD63;border-color: #84DD63;}
+    }
+
+    @-webkit-keyframes colorchange {
+      0%   {fill: #84DD63;border-color: #84DD63;}
+			20%  {fill: #6BAA75;border-color: #6BAA75;}
+      40%  {fill: #CBFF4D;border-color: #CBFF4D;}
+      60%  {fill: #545454;border-color: #545454;}
+			80%  {fill: #69747C;border-color: #69747C;}
+      100%   {fill: #84DD63;border-color: #84DD63;}
+    }
+
+svg{
+	border: solid 64px #000;
+	animation: colorchange 30s infinite;
+  -webkit-animation: colorchange 30s infinite;
+	position: absolute;
+	top:50%;
+	left: 50%;
+	transform: translatex(-50%) translatey(-50%);
+}
+
+body{
+	background: url('https://source.unsplash.com/collection/1064853/');
+	background-size: cover;
+	background-repeat: no-repeat;
+	overflow: hidden;
+}
+
+footer{
+	position: absolute;
+	bottom: 0px;
+	width:100%;
+	text-align: center;
+	padding:16px;
+	font-family: Arial;
+	font-weight: bold;
+	font-size: 12px;
+	color: rgba(255,255,255,1);
+	box-sizing: border-box;
+}
+
+a{
+	color:rgba(203,255,77,0.6);
+	text-decoration: none;
+}
+
+footer div{
+	display: inline-block;
+	padding: 16px;
+	box-sizing: border-box;
+	background-color: #545454;
+	opacity: 0.4;
+	transition: all .8s;
+}
+
+footer div:hover{
+	opacity: .8;
+}
