@@ -31,6 +31,7 @@ body{
 	background-size: cover;
 	background-repeat: no-repeat;
 	overflow: hidden;
+	height: 100vh;
 }
 
 footer{
@@ -62,4 +63,9 @@ footer div{
 
 footer div:hover{
 	opacity: .8;
+}
+
+@media screen and (max-width:768px){
+	width:100%;
+	height:auto;
 }
