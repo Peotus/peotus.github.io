@@ -94,6 +94,41 @@ wget https://raw.githubusercontent.com/Peotus/peotus.github.io/master/assets/sup
 
 systemctl start supervisord
 systemctl enable supervisord
+
+
+mkdir /var/log/supervisor/
+
+sudo nano /etc/supervisor/supervisord.conf
+
+
+[program:cam_hotellessinia]
+command = node hotel_lessinia.js
+directory = /home/altalessinia/cams
+user = root
+autostart = true
+autorestart = true
+stdout_logfile = /var/log/supervisor/hotel_lessinia.log
+stderr_logfile = /var/log/supervisor/hotel_lessinia.err
+logfile_backups = 0
+logfile_maxbytes = 1000000
+
+
+
+[program:watchdog_bosco]
+command = python -u watchdog.py
+directory = /home/altalessinia/cams
+user = root
+autostart = true
+autorestart = true
+stdout_logfile = /var/log/supervisor/watchdog_bosco.log
+stderr_logfile = /var/log/supervisor/watchdog_bosco.err
+logfile_backups = 0
+logfile_maxbytes = 1000000
+
+
+supervisorctl reload
+
+
 </code></pre>
     </div>
   </div>
