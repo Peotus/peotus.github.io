@@ -23,7 +23,7 @@
 
   <body>
 
-  	<!-- Global site tag (gtag.js) - Google Analytics -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117254143-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -65,7 +65,8 @@ systemctl enable vsftpd
 
 <h3 id="installarepip">Installare pip</h3>
 
-<pre><code class=" shell language- shell">yum -y install python-pip
+<pre><code class=" shell language- shell">sudo yum install epel-release -y 
+  yum -y install python-pip
 </code></pre>
 
 <h3 id="installarenodejs">Installare Node js</h3>
@@ -77,7 +78,7 @@ sudo yum install gcc-c++ make
 
 <h3 id="installffmpeg">Install ffmpeg</h3>
 
-<pre><code class=" shell language- shell">sudo yum install epel-release -y
+<pre><code class=" shell language- shell">
 sudo rpm --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro
 sudo rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm
 sudo yum install ffmpeg ffmpeg-devel -y
@@ -89,7 +90,7 @@ sudo yum install ffmpeg ffmpeg-devel -y
 mkdir -p /etc/supervisor/conf.d
 echo_supervisord_conf &gt; /etc/supervisor/supervisord.conf
 echo "files = conf.d/*.conf" &gt;&gt; /etc/supervisor/supervisord.conf
-wget https://gist.githubusercontent.com/mozillazg/6cbdcccbf46fe96a4edd/raw/2f5c6f5e88fc43e27b974f8a4c19088fc22b1bd5/supervisord.service -O /usr/lib/systemd/system/supervisord.service
+wget https://raw.githubusercontent.com/Peotus/peotus.github.io/master/assets/supervisord.service -O /usr/lib/systemd/system/supervisord.service
 
 systemctl start supervisord
 systemctl enable supervisord
