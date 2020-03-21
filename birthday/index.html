@@ -1,0 +1,326 @@
+<html>
+    <head>
+        <title>Birthday Test</title>
+
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Kaushan+Script');
+            html, body {
+  margin: 0;
+  height: 100%;
+  font-family: 'Kaushan Script','Sail', cursive;
+}
+#c {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+    h1{
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%) rotate(-16deg);
+        color: #fff;
+        text-shadow: 0px 0px 24px #ee9ca7;
+        font-size: 112px;
+        width: 90%;
+        text-align: center;
+    }
+    
+    p{
+        position:absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: rgba(255,255,255,0.6);
+        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+        </style>
+    </head>
+    <body>
+
+        <h1>Buon Compleanno More!</h1>
+        <canvas id="c"></canvas>
+
+        <p>Almeno ci sono i palloncini :)</p>
+
+        <script type="x-shader/x-vertex" id="vertexShader">
+
+			varying vec3 vWorldPosition;
+
+			void main() {
+
+				vec4 worldPosition = modelMatrix * vec4( position, 1.0 );
+				vWorldPosition = worldPosition.xyz;
+
+				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+
+			}
+
+		</script>
+
+		<script type="x-shader/x-fragment" id="fragmentShader">
+
+			uniform vec3 topColor;
+			uniform vec3 bottomColor;
+			uniform float offset;
+			uniform float exponent;
+
+			varying vec3 vWorldPosition;
+
+			void main() {
+
+				float h = normalize( vWorldPosition + offset ).y;
+				gl_FragColor = vec4( mix( bottomColor, topColor, max( pow( max( h , 0.0), exponent ), 0.0 ) ), 1.0 );
+
+			}
+
+		</script>
+
+        <script type="module">
+            import * as THREE from './node_modules/three/build/three.module.js';
+            import {OrbitControls} from './node_modules/three/examples/jsm/controls/OrbitControls.js';
+            import {GLTFLoader} from './node_modules/three/examples/jsm/loaders/GLTFLoader.js';
+
+            function dumpObject(obj, lines = [], isLast = true, prefix = '') {
+  const localPrefix = isLast ? '└─' : '├─';
+  lines.push(`${prefix}${prefix ? localPrefix : ''}${obj.name || '*no-name*'} [${obj.type}]`);
+  const newPrefix = prefix + (isLast ? '  ' : '│ ');
+  const lastNdx = obj.children.length - 1;
+  obj.children.forEach((child, ndx) => {
+    const isLast = ndx === lastNdx;
+    dumpObject(child, lines, isLast, newPrefix);
+  });
+  return lines;
+}
+
+            function main() {
+  const canvas = document.querySelector('#c');
+  const renderer = new THREE.WebGLRenderer({canvas});
+
+  renderer.shadowMap.enabled = true;
+
+  const fov = 45;
+  const aspect = 2;  // the canvas default
+  const near = 0.1;
+  const far = 100;
+  const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+  camera.position.set(0, 10, 5);
+
+  const controls = new OrbitControls(camera, canvas);
+  controls.target.set(0, 5, 0);
+  controls.update();
+
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color().setHSL( 0.6, 0, 1 );
+  scene.fog = new THREE.Fog( scene.background, 1, 5000 );
+
+  let dirLight, numberLight, hemiLight;
+
+  {
+    //LIGHTS
+
+    hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.6 );
+    hemiLight.color.setHSL( 0.6, 1, 0.6 );
+    hemiLight.groundColor.set( 0x387300 );
+    hemiLight.position.set( 0, 10, 10 );
+    scene.add( hemiLight );
+
+    dirLight = new THREE.DirectionalLight( 0xffffff, .1 );
+    dirLight.color.setHSL( 0.1, 1, 0.95 );
+    dirLight.position.set(  30, -4.75, 10 );
+    dirLight.position.multiplyScalar( 1000 );
+    scene.add( dirLight );
+
+    //NUMBER LIGHT
+
+    numberLight = new THREE.DirectionalLight( 0xffffff, .3);
+    //numberLight.color.setHSL( 0.1, 1, 0.95 );
+    numberLight.position.set( 30, 0, -10 );
+    numberLight.position.multiplyScalar( 100 );
+    scene.add( numberLight );
+
+    var d = 50;
+
+    numberLight.shadow.camera.left = - d;
+    numberLight.shadow.camera.right = d;
+    numberLight.shadow.camera.top = d;
+    numberLight.shadow.camera.bottom = - d;
+
+    numberLight.shadow.camera.far = .4;
+    numberLight.shadow.bias = - 0.0001;
+    
+    // SKYDOME
+
+    var vertexShader = document.getElementById( 'vertexShader' ).textContent;
+    var fragmentShader = document.getElementById( 'fragmentShader' ).textContent;
+    var uniforms = {
+        "topColor": { value: new THREE.Color( 0x0077ff ) },
+        "bottomColor": { value: new THREE.Color( 0xee9ca7 ) },
+        "offset": { value: 33 },
+        "exponent": { value: 0.6 }
+    };
+    uniforms[ "topColor" ].value.copy( hemiLight.color );
+
+    scene.fog.color.copy( uniforms[ "bottomColor" ].value );
+
+    var skyGeo = new THREE.SphereBufferGeometry( 4000, 32, 15 );
+    var skyMat = new THREE.ShaderMaterial( {
+        uniforms: uniforms,
+        vertexShader: vertexShader,
+        fragmentShader: fragmentShader,
+        side: THREE.BackSide
+    } );
+
+    var sky = new THREE.Mesh( skyGeo, skyMat );
+    scene.add( sky );
+
+  }
+
+  function frameArea(sizeToFitOnScreen, boxSize, boxCenter, camera) {
+    const halfSizeToFitOnScreen = sizeToFitOnScreen * 0.5;
+    const halfFovY = THREE.MathUtils.degToRad(camera.fov * .5);
+    const distance = halfSizeToFitOnScreen / Math.tan(halfFovY);
+    // compute a unit vector that points in the direction the camera is now
+    // in the xz plane from the center of the box
+    const direction = (new THREE.Vector3())
+        .subVectors(camera.position, boxCenter)
+        .multiply(new THREE.Vector3(1, 0, 1))
+        .normalize();
+
+    // move the camera to a position distance units way from the center
+    // in whatever direction the camera was from the center already
+    camera.position.copy(direction.multiplyScalar(distance).add(boxCenter));
+
+    // pick some near and far values for the frustum that
+    // will contain the box.
+    camera.near = boxSize / 100;
+    camera.far = boxSize * 100;
+
+    camera.updateProjectionMatrix();
+
+    // point the camera to look at the center of the box
+    camera.lookAt(boxCenter.x, boxCenter.y, boxCenter.z);
+  }
+
+  const movingNumbers = [];
+
+  {
+    const gltfLoader = new GLTFLoader();
+    
+    let numbers;
+    let number2, number3, mesh_number2, mesh_number3;
+
+    gltfLoader.load('demo.gltf', (gltf) => {
+        const root = gltf.scene;
+
+        root.traverse((obj) => {
+            if (obj.castShadow !== undefined) {
+                //obj.castShadow = true;
+                //obj.receiveShadow = true;
+            }
+        });
+
+        var numbers = root.getObjectByName('GLTF_SceneRootNode');
+        numbers=numbers.children.slice();
+
+        var number2=numbers[1];
+        var number3=numbers[2];
+
+        var mesh_number2=number2.children.slice()[0];
+        var mesh_number3=number3.children.slice()[0];
+
+        var s = 60;
+
+        mesh_number2.scale.set( s, s, s );
+        mesh_number3.scale.set( s, s, s );
+
+        mesh_number2.position.set(0,-50,0);
+        mesh_number3.position.set(0,-50,0);
+
+        mesh_number2.material.color={r:5, g:5, b:5};
+        mesh_number3.material.color={r:5, g:5, b:5};
+
+
+        number2.position.set(0,5,15);
+        number3.position.set(0,5,-15);
+
+      
+
+        const obj = new THREE.Object3D();
+        obj.add(number2);
+        obj.add(number3)
+        movingNumbers.push(number2);
+        movingNumbers.push(number3);
+        scene.add(obj);
+
+      
+      // compute the box that contains all the stuff
+      // from root and below
+      const box = new THREE.Box3().setFromObject(obj);
+
+      const boxSize = box.getSize(new THREE.Vector3()).length();
+      const boxCenter = box.getCenter(new THREE.Vector3());
+
+      // set the camera to frame the box
+      frameArea(boxSize , boxSize, boxCenter, camera);
+
+      // update the Trackball controls to handle the new size
+      controls.maxDistance = boxSize *35;
+      controls.target.copy(boxCenter);
+      controls.update();
+    });
+  }
+
+  
+
+  function resizeRendererToDisplaySize(renderer) {
+    const canvas = renderer.domElement;
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+    const needResize = canvas.width !== width || canvas.height !== height;
+    if (needResize) {
+      renderer.setSize(width, height, false);
+    }
+    return needResize;
+  }
+
+  function render(time) {
+    time *= 0.001;  // convert to seconds
+
+    if (resizeRendererToDisplaySize(renderer)) {
+      const canvas = renderer.domElement;
+      camera.aspect = canvas.clientWidth / canvas.clientHeight;
+      camera.updateProjectionMatrix();
+    }
+
+    {
+      const pathTime = time * .01;
+      const targetOffset = 0.01;
+      
+
+      movingNumbers.forEach((number,ndx) => {
+        number.rotation.x= Math.sin(time/1.2+(ndx+1)/3)/62+1.57;
+        number.rotation.y= Math.sin(time/1.2+(ndx+1)/2)/40;
+        number.rotation.z= Math.sin(time/1.2+(ndx+1)/2)/38-1.57;
+      });
+    }
+
+    renderer.render(scene, camera);
+
+    requestAnimationFrame(render);
+  }
+
+  requestAnimationFrame(render);
+}
+
+main();
+
+
+
+        </script>
+    </body>
+</html>

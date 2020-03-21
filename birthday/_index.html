@@ -1,0 +1,321 @@
+<html>
+    <head>
+        <title>Buon compleanno More!</title>
+
+        <meta charset="UTF-8">
+        <meta name="description" content="Buon compleanno more">
+        <meta name="keywords" content="">
+        <meta name="author" content="Peotus">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <style>
+            html, body {
+  margin: 0;
+  height: 100%;
+}
+#c {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+        </style>
+    </head>
+    <body>
+
+        <canvas id="c"></canvas>
+
+        <script type="module">
+            import * as THREE from './node_modules/three/build/three.module.js';
+            import {OrbitControls} from './node_modules/three/examples/jsm/controls/OrbitControls.js';
+            import {GLTFLoader} from './node_modules/three/examples/jsm/loaders/GLTFLoader.js';
+
+            function dumpObject(obj, lines = [], isLast = true, prefix = '') {
+  const localPrefix = isLast ? '└─' : '├─';
+  lines.push(`${prefix}${prefix ? localPrefix : ''}${obj.name || '*no-name*'} [${obj.type}]`);
+  const newPrefix = prefix + (isLast ? '  ' : '│ ');
+  const lastNdx = obj.children.length - 1;
+  obj.children.forEach((child, ndx) => {
+    const isLast = ndx === lastNdx;
+    dumpObject(child, lines, isLast, newPrefix);
+  });
+  return lines;
+}
+
+            function main() {
+  const canvas = document.querySelector('#c');
+  const renderer = new THREE.WebGLRenderer({canvas});
+
+  renderer.shadowMap.enabled = true;
+
+  const fov = 45;
+  const aspect = 2;  // the canvas default
+  const near = 0.1;
+  const far = 100;
+  const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+  camera.position.set(0, 10, 20);
+
+  const controls = new OrbitControls(camera, canvas);
+  controls.target.set(0, 5, 0);
+  controls.update();
+
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0xb3e5fc);
+
+  /* {
+    const planeSize = 10;
+
+    const loader = new THREE.TextureLoader();
+    const texture = loader.load('https://threejsfundamentals.org/threejs/resources/images/checker.png');
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.RepeatWrapping;
+    texture.magFilter = THREE.NearestFilter;
+    const repeats = planeSize / 2;
+    texture.repeat.set(repeats, repeats);
+
+    const planeGeo = new THREE.PlaneBufferGeometry(planeSize, planeSize);
+    const planeMat = new THREE.MeshPhongMaterial({
+      map: texture,
+      side: THREE.DoubleSide,
+    });
+    const mesh = new THREE.Mesh(planeGeo, planeMat);
+    mesh.rotation.x = Math.PI * -.5;
+    scene.add(mesh);
+  } */
+
+  {
+    const skyColor = 0xb3e5fc;  // light blue
+    const groundColor = 0xb3e5fc;  // brownish orange
+    const intensity = 1;
+    const light = new THREE.HemisphereLight(skyColor, groundColor, intensity);
+    scene.add(light);
+  }
+
+  {
+    const color = 0xAAAAAA;
+    const intensity = 0.4;
+    const light = new THREE.DirectionalLight(color, intensity);
+    light.castShadow = true;
+    light.position.set(-20, 40, 200);
+    //light.target.position.set(-100, -100, -200);
+
+    light.shadow.bias = -0.004;
+    light.shadow.mapSize.width = 2048;
+    light.shadow.mapSize.height = 2048;
+
+    scene.add(light);
+
+    const spotLight = new THREE.PointLight( 0xffffff, );
+spotLight.position.set( 100, 1000, -100 );
+
+spotLight.castShadow = true;
+scene.add( spotLight );
+    //scene.add(light.target);
+    const cam = light.shadow.camera;
+    cam.near = 1;
+    cam.far = 2000;
+    cam.left = -1500;
+    cam.right = 1500;
+    cam.top = 1500;
+    cam.bottom = -1500;
+
+  }
+
+  function frameArea(sizeToFitOnScreen, boxSize, boxCenter, camera) {
+    const halfSizeToFitOnScreen = sizeToFitOnScreen * 0.5;
+    const halfFovY = THREE.MathUtils.degToRad(camera.fov * .5);
+    const distance = halfSizeToFitOnScreen / Math.tan(halfFovY);
+    // compute a unit vector that points in the direction the camera is now
+    // in the xz plane from the center of the box
+    const direction = (new THREE.Vector3())
+        .subVectors(camera.position, boxCenter)
+        .multiply(new THREE.Vector3(1, 0, 1))
+        .normalize();
+
+    // move the camera to a position distance units way from the center
+    // in whatever direction the camera was from the center already
+    camera.position.copy(direction.multiplyScalar(distance).add(boxCenter));
+
+    // pick some near and far values for the frustum that
+    // will contain the box.
+    camera.near = boxSize / 100;
+    camera.far = boxSize * 100;
+
+    camera.updateProjectionMatrix();
+
+    // point the camera to look at the center of the box
+    camera.lookAt(boxCenter.x, boxCenter.y, boxCenter.z);
+  }
+
+  const movingNumbers = [];
+
+  {
+    const gltfLoader = new GLTFLoader();
+    /* gltfLoader.load('https://threejsfundamentals.org/threejs/resources/models/cartoon_lowpoly_small_city_free_pack/scene.gltf', (gltf) => {
+      const root = gltf.scene;
+      scene.add(root);
+
+      // compute the box that contains all the stuff
+      // from root and below
+      const box = new THREE.Box3().setFromObject(root);
+
+      const boxSize = box.getSize(new THREE.Vector3()).length();
+      const boxCenter = box.getCenter(new THREE.Vector3());
+
+      // set the camera to frame the box
+      frameArea(boxSize * 0.5, boxSize, boxCenter, camera);
+
+      // update the Trackball controls to handle the new size
+      controls.maxDistance = boxSize * 10;
+      controls.target.copy(boxCenter);
+      controls.update();
+    }); */
+
+    let numbers;
+
+    gltfLoader.load('demo.gltf', (gltf) => {
+      const root = gltf.scene;
+      //scene.add(root);
+
+      root.traverse((obj) => {
+      if (obj.castShadow !== undefined) {
+        obj.castShadow = true;
+        obj.receiveShadow = true;
+      }
+    });
+
+      numbers = root.getObjectByName('GLTF_SceneRootNode');
+      numbers=numbers.children.slice();
+
+      const number2=numbers[1];
+      const number3=numbers[2];
+
+
+      number2.children.slice()[0].material.color={r:40, g:40, b:40};
+      number2.children.slice()[0].rotation.z=1.57;
+      number2.position.set(-0.25,0,0);
+      number2.children[0].position.setX(-0.5);
+      number2.children[0].position.setY(-0.5);
+
+      number3.children.slice()[0].material.color={r:40, g:40, b:40};
+      number3.children.slice()[0].rotation.z=1.57;
+      //number3.children.slice()[0].postion.x=-50;
+      number3.position.set(0.25,0,0);
+      number3.children[0].position.setX(-0.5);
+      number3.children[0].position.setY(-0.5);
+
+      const obj = new THREE.Object3D();
+      obj.add(number2);
+      obj.add(number3)
+      movingNumbers.push(number2);
+      movingNumbers.push(number3);
+      scene.add(obj);
+
+      //const mypart=number1.children.slice()[0];
+
+      /* for (const number of numbers.children.slice()) {
+        //const fix = fixes.find(fix => car.name.startsWith(fix.prefix));
+        const thecar=number.children.slice()[0];
+        thecar.material.color={r:40, g:40, b:40};
+        thecar.rotation.z=1.57;
+        const obj = new THREE.Object3D(); */
+        
+        //obj.add(thecar);
+        //scene.add(obj);
+      //   thenumbers.push(obj);
+      // }
+
+      
+      // number1.children.slice()[0].material.color={r:40, g:40, b:40};
+      // number1.children.slice()[0].rotation.z=1.57;
+
+      // const obj = new THREE.Object3D();
+      // //obj.children.slice()[0].material.color.setHex(0xFF0000);
+      // obj.add(number1);
+      // console.log(number1);
+      // scene.add(obj);
+      console.log(scene);
+
+      // compute the box that contains all the stuff
+      // from root and below
+      const box = new THREE.Box3().setFromObject(obj);
+
+      const boxSize = box.getSize(new THREE.Vector3()).length();
+      const boxCenter = box.getCenter(new THREE.Vector3());
+
+      // set the camera to frame the box
+      frameArea(boxSize , boxSize, boxCenter, camera);
+
+      // update the Trackball controls to handle the new size
+      controls.maxDistance = boxSize *35;
+      controls.target.copy(boxCenter);
+      controls.update();
+    });
+  }
+
+  function resizeRendererToDisplaySize(renderer) {
+    const canvas = renderer.domElement;
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+    const needResize = canvas.width !== width || canvas.height !== height;
+    if (needResize) {
+      renderer.setSize(width, height, false);
+    }
+    return needResize;
+  }
+
+  function render(time) {
+    time *= 0.001;  // convert to seconds
+
+    if (resizeRendererToDisplaySize(renderer)) {
+      const canvas = renderer.domElement;
+      camera.aspect = canvas.clientWidth / canvas.clientHeight;
+      camera.updateProjectionMatrix();
+    }
+
+    {
+      const pathTime = time * .01;
+      const targetOffset = 0.01;
+      /* cars.forEach((car, ndx) => {
+        // a number between 0 and 1 to evenly space the cars
+        const u = pathTime + ndx / cars.length;
+
+        // get the first point
+        curve.getPointAt(u % 1, carPosition);
+        carPosition.applyMatrix4(curveObject.matrixWorld);
+
+        // get a second point slightly further down the curve
+        curve.getPointAt((u + targetOffset) % 1, carTarget);
+        carTarget.applyMatrix4(curveObject.matrixWorld);
+
+        // put the car at the first point (temporarily)
+        car.position.copy(carPosition);
+        // point the car the second point
+        car.lookAt(carTarget);
+
+        // put the car between the 2 points
+        car.position.lerpVectors(carPosition, carTarget, 0.5);
+      }); */
+
+      movingNumbers.forEach((number,ndx) => {
+        //console.log(Math.sin(time));
+        //number.position.y= Math.sin(time+ndx*Math.PI/3)/40;
+        number.rotation.x= Math.sin(time/1.2+(ndx+1)/3)/62+1.57;
+        number.rotation.y= Math.sin(time/1.2+(ndx+1)/2)/40;
+        number.rotation.z= Math.sin(time/1.2+(ndx+1)/2)/38-1.57;
+      });
+    }
+
+    renderer.render(scene, camera);
+
+    requestAnimationFrame(render);
+  }
+
+  requestAnimationFrame(render);
+}
+
+main();
+
+        </script>
+    </body>
+</html>
