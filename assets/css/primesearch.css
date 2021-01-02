@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css?family=Asap:400,500,700|Lora:400,700&display=swap');
+
+h1, h2, h3, h6{
+    font-family: 'Asap', sans-serif;
+}
+
+h1{
+    font-weight: 500;
+    font-size: 112px;
+    color: rgba(255,255,255,.4);
+    margin: 0px 0px 24px 0px;
+}
+h6{
+    font-size:24px;
+    color: rgba(255,255,255,.8);
+}
+
+.center{
+    text-align: center;
+}
+
+.ps_form {
+    margin: 32px 0px;
+}
+
+.ps_form input[type="text"]{
+    background: transparent;
+    color: rgba(255,255,255,.4);
+    border: solid 1px rgba(255,255,255,.8);
+    padding: 8px 24px;
+    border-radius: 2px;
+    font-family: 'Asap', sans-serif;
+    font-size: 32px;
+}
+
+.ps_form input[type="submit"]{
+    background: #00B4D8;
+    color: #fff;
+    border: solid 1px rgba(255,255,255,.8);
+    padding: 8px 24px;
+    border-radius: 2px;
+    font-family: 'Asap', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
