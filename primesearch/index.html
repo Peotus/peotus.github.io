@@ -14,6 +14,8 @@
         <link rel="stylesheet" type="text/css" href="../assets/css/base.css"/>
         <link rel="stylesheet" type="text/css" href="../assets/css/primesearch.css"/>
 
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
         <style>
             html,body{
                 background-color: #161616;
@@ -23,7 +25,8 @@
 
     </head>
     <body>
-        <div class="row">
+        <div class="container">
+        <div class="row center">
             <div class="col m12 s12">
                 <h1>Primesearch</h1>
                 <h6>Search amazon primevideo.com catalog in every country</h6>
@@ -33,13 +36,15 @@
         <div class="row">
             <div class="col m12 s12">
                 <form class="ps_form">
-                    <input name="ps_search" type="text" placeholder="Search for Seinfeld" />
-                    <input name="ps_submit" type="submit" value="search" />
+                    <input name="ps_search" type="text" placeholder="Search for Seinfeld" class="col s11 m10"/>
+                    <input name="ps_submit" type="submit" value="search" class="no-sm col m2"></input>
+                    <i class="material-icons col s1">search</i>
                 </form>
             </div>
         </div>
+    </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"> </script>
-        <script src="assets/js/script.js"></script>
+        <script src="../assets/js/ps.js"></script>
 
     </body>
 </html>

@@ -24,9 +24,9 @@ h6{
 }
 
 .ps_form input[type="text"]{
-    background: transparent;
+    background: rgba(255,255,255,.09);
     color: rgba(255,255,255,.4);
-    border: solid 1px rgba(255,255,255,.8);
+    border:none;
     padding: 8px 24px;
     border-radius: 2px;
     font-family: 'Asap', sans-serif;
@@ -43,4 +43,33 @@ h6{
     font-size: 32px;
     font-weight: 700;
     text-transform: uppercase;
+}
+
+.ps_form .material-icons {
+    display:none;
+}
+
+@media only screen and (max-width:768px){
+    h1{
+        font-size: 48px;
+    }
+    .ps_form{
+        padding: 12px;
+    }
+
+    .ps_form input[type="text"]{
+        padding: 8px 24px;
+        border-radius: 2px;
+        font-family: 'Asap', sans-serif;
+        font-size: 16px;
+    }
+
+    .ps_form input[type="submit"]{
+        display:none;
+    }
+
+    .ps_form .material-icons {
+        display:inline-block;
+        padding: 8px;
+    }
 }
