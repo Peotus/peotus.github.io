@@ -36,11 +36,11 @@
     background-color: #8EC5FC;
     background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
 
-    background-size: 600% 600%;
+    background-size: 300% 300%;
 
-    -webkit-animation: AnimationName 30s ease infinite;
-    -moz-animation: AnimationName 30s ease infinite;
-    animation: AnimationName 30s ease infinite;
+    -webkit-animation: AnimationName 10s ease infinite;
+    -moz-animation: AnimationName 10s ease infinite;
+    animation: AnimationName 10s ease infinite;
 }
 
 
@@ -60,11 +60,97 @@
     100%{background-position:0% 50%}
 }
 
-
+.blob {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    filter: blur(20px);
+    animation: move-blob 20s infinite;
+    z-index: 0;
+  }
+  .blob-1 {
+    width: 200px;
+    height: 200px;
+    top: 10%;
+    left: 25%;
+    background-color: rgba(244,91,105,0.2);
+    animation-delay: 0s;
+  }
+  .blob-2 {
+    width: 150px;
+    height: 150px;
+    top: 30%;
+    left: 5%;
+    background-color: #87CEEB;
+    animation-delay: 2s;
+  }
+  .blob-3 {
+    width: 100px;
+    height: 100px;
+    top: 60%;
+    left: 80%;
+    background-color: rgba(225,206,122,0.3);
+    animation-delay: 3s;
+  }
+  .blob-4 {
+    width: 120px;
+    height: 120px;
+    top: 90%;
+    left: 40%;
+    background-color: rgba(255,255,255,.4);
+    animation-delay: 6s;
+  }
+  .blob-5 {
+    width: 80px;
+    height: 80px;
+    top: 30%;
+    left: 70%;
+    background-color: rgba(44,102,110,0.3);
+    animation-delay: 7s;
+  }
+  .blob-6 {
+    width: 90px;
+    height: 90px;
+    top: 70%;
+    left: 90%;
+    background-color: rgba(255,90,95,0.25);
+    animation-delay: 11s;
+  }
+  .blob-7 {
+    width: 70px;
+    height: 70px;
+    top: 60%;
+    left: 60%;
+    background-color: rgba(244,184,96,0.3);
+    animation-delay: 5s;
+  }
+  .blob-8 {
+    width: 130px;
+    height: 130px;
+    top: 25%;
+    left: 80%;
+    background-color: rgba(15,244,198,0.2);
+    animation-delay: 2.2s;
+  }
+  @keyframes move-blob {
+    0% {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+      transform: translate(calc(-50% + 100px), calc(-50% + 100px)) scale(0.8);
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+    }
+}
 
 .birthday h1{
     font-family: 'Moontime';
     font-size: 200px;
+    position: relative;
+    z-index: 1;
 }
 
 
@@ -94,6 +180,7 @@
     font-weight: 200;
     font-size: 22px;
     line-height:30px;
+    color: rgba(0,0,0,0.7);
 }
 
 .pack p+p{
@@ -114,6 +201,10 @@
 
 .ancora-gold{
     background-color: #253031;
+    color:#e0f5e4;
+}
+
+.ancora-gold p{
     color:#e0f5e4;
 }
 
