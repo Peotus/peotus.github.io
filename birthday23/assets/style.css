@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=Forum&family=Noto+Sans:wght@200;300;400&display=swap');
+
+@font-face {
+    font-family: Moontime;
+    src: url(MoonTime-Regular.ttf);
+}
+
+@font-face {
+    font-family: Cheque;
+    src: url(Cheque-Regular.otf);
+}
+
+.birthday::after{
+    content: "";
+    width:100%;
+    height: 100%;
+    background-image: url(noisy.png);
+    background-repeat: repeat;
+    background-size: 100px 100px;
+    display: block;
+    position: absolute;
+    top:0px;
+    left:0px;
+}
+
+
+.birthday{
+    background-color: #F2D7EE;
+    color:#69306D;
+    padding: 180px 16px;
+    position: relative;
+    min-height:400px;
+    text-align: center;
+    text-shadow: 0px 2px 36px rgba(255,255,255,.8);
+
+    background-color: #8EC5FC;
+    background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+
+    background-size: 600% 600%;
+
+    -webkit-animation: AnimationName 30s ease infinite;
+    -moz-animation: AnimationName 30s ease infinite;
+    animation: AnimationName 30s ease infinite;
+}
+
+
+@-webkit-keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+
+
+.birthday h1{
+    font-family: 'Moontime';
+    font-size: 200px;
+}
+
+
+.pack{
+    padding:112px;
+}
+
+.hearts{
+    width: 110px;
+    filter: drop-shadow(0px 0px 2px #ff3131) drop-shadow(0px 0px 5px #ff3131) drop-shadow(0px 0px 12px #ff3131);
+    margin: 0 auto;
+    position: absolute;
+    margin-top: -55px;
+    left: 50vw;
+    margin-left: -55px;
+}
+
+.pack h2{
+    font-family: 'Forum', cursive;
+    color: #171717;
+    font-size: 72px;
+    margin-bottom:40px;
+}
+
+.pack p{
+    font-family: 'Noto', sans-serif;
+    font-weight: 200;
+    font-size: 22px;
+    line-height:30px;
+}
+
+.pack p+p{
+    margin-top: 18px;
+}
+
+.excel{
+    background-color: #e0f5e4;
+}
+
+.powerpoint{
+    background-color: #f9eae7;
+}
+
+.ancora{
+    background-color: #fcf0e2;
+}
+
+.ancora-gold{
+    background-color: #253031;
+    color:#e0f5e4;
+}
+
+.ancora-gold h2{
+    color: #fffceb;
+    text-shadow: 0px 0px 30px #ffd700;
+    font-family: 'Moontime';
+    font-size: 124px;
+}
+
+.ancora-gold h3{
+    color: rgba(255, 215, 0,.19);
+    font-family: 'Cheque';
+    font-size: 84px;
+    margin-top: -138px;
+    margin-bottom: 64px;
+}
+
+.okaay{
+    background-color: #e3e1ef;
+}
+
+
+@media screen and (max-width: 992px) {
+
+    .birthday{
+        min-height: 230px;;
+    }
+
+    .birthday h1{
+        font-size: 100px;
+    }
+
+    .hearts{
+        width: 64px;
+        margin-top: -32px;
+        left: 50vw;
+        margin-left: -32px;
+    }
+
+    .pack{
+        padding: 48px 16px;
+    }
+
+    .pack h2{
+        font-size: 48px;
+        margin-bottom:32px;
+    }
+    
+    .pack p{
+        font-size: 16px;
+        line-height:24px;
+    }
+    
+    .ancora-gold h3{
+        font-size: 34px;
+        margin-top: -80px;
+        margin-bottom: 64px;
+    }
+
+  }
