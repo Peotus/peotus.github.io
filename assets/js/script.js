@@ -1,23 +1,38 @@
-$(document).ready(function() {
-    $('.nav .box').css('right', $('.nav').width()/2-3);
-});
+const move = document.getElementById("move");
 
-var position = $(".nav").offset();
+document.body.onpointermove = event => {
+    const { clientX, clientY } = event;
 
-$(".nav").on('mousemove', function(e){
-    $('.nav-follower').delay(250).css({
-       left:  e.pageX - 2500 ,
-       top:   e.pageY -  2500
-    });
-});
+    move.animate({
+        left: `${clientX}px`,
+        top: `${clientY}px`
+    
+    }, {duration: 500, fill: "forwards"})
 
-$('.nav').hover(function(){
-	$('.nav-follower').addClass('hover');
+};
 
-}, function(){
-    $('.nav-follower').addClass('ending');
-    setTimeout(function(){
-        $('.nav-follower').removeClass('ending');
-        $('.nav-follower').removeClass('hover');
-    }, 300);
-})
+var $cursor = jQuery('#move');
+var $links = jQuery('.link, .call-to-action, a');
+
+$links.on('mouseenter', function(e){
+    $cursor.addClass('big');
+ });
+ 
+ $links.on('mouseleave', function(e){
+    $cursor.removeClass('big');
+ });
+
+ var open=0;
+
+ $("#hamburger").on('click', function(e){
+    if(open==0){
+        $("#navbar, #hamburger").addClass('open');
+        open=1;
+    }
+    else{
+        $("#navbar, #hamburger").removeClass('open');
+        open=0;
+    }
+ });
+
+

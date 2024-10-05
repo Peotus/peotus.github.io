@@ -1,60 +1,19 @@
 @import url('https://fonts.googleapis.com/css?family=Asap:400,500,700|Lora:400,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz@6..96&family=Playfair+Display&display=swap');
 
-/* https://coolors.co/171717-edae49-290001-251a04-fdf8ed */
-
-body::after{
-    content: "";
-    width:100vw;
-    height: 100vh;
-    background-image: url(../img/noisy.png);
-    background-repeat: repeat;
-    background-size: 100px 100px;
-    display: block;
-    position: fixed;
-}
-
-body{
-    background: linear-gradient(270deg, #290001, #241B04, #171717);
-    background-size: 600% 600%;
-
-    -webkit-animation: AnimationName 30s ease infinite;
-    -moz-animation: AnimationName 30s ease infinite;
-    animation: AnimationName 30s ease infinite;
-
-    font-family: 'Bodoni Moda', serif;
-}
-
-@-webkit-keyframes AnimationName {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
-}
-@-moz-keyframes AnimationName {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
-}
-@keyframes AnimationName {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
-}
 .valign{
     position: relative;
     top: 50%;
     transform: translateY(-50%);
 }
 
-.center{
-    text-align: center;
+h1, h2, h3{
+    font-family: 'Asap', sans-serif;
 }
 
 h1{
-    
-    font-size: 196px;
-    color: #FDF8ED;
-    letter-spacing: -2px;
+    font-weight: 500;
+    font-size: 112px;
+    color: rgba(255,255,255,.4);
     margin: 0px 0px 24px 0px;
 }
 
@@ -92,7 +51,6 @@ h3{
     width: 32px;
     opacity: .4;
     transition: all .4s;
-    padding: 20px 64px; 
 }
 
 .logo:hover{
@@ -100,47 +58,10 @@ h3{
 }
 
 
-nav{
-    text-align: right;
-}
-
-nav ul{
-    display: block;
-}
-
-nav ul li {
-    display:inline-block;
-    padding: 34px;
-}
-
-nav ul li a {
-    text-decoration: none;
-    display: block;
-    padding: 8px 16px;
-    color: #FDF8ED;
-    font-size: 16px;
-    opacity: .4;
-    text-shadow: 0px 0px 8px rgba(253,248,237,.0);
-    transition: all .4s;
-}
-nav ul li a::after{
- content:"";
- display: block;
- width: 0%;
- height: 2px;
- background-color: #FDF8ED;
- margin-top: 4px;
- transition: all ease-out .2s;
-}
-
-nav ul li a:hover{
-    opacity: 1;
-    text-shadow: 0px 0px 24px rgba(253,248,237,.5);
-}
-
-nav ul li a:hover::after{
-    width:100%;
-    background-color: #edae49;
+.nav{
+    overflow: hidden;
+    position: relative;
+    border: solid 8px #161616;
 }
 
 .nav-follower{
