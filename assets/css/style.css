@@ -157,7 +157,7 @@ body {
 }
 
 .who {
-  padding: 120px 0px;
+  padding: 220px 0px;
 }
 
 .who h1{
@@ -196,21 +196,72 @@ body {
 .contact a{
   color: #f35626;
   font-weight: 900;
-  background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
+  background-image: -webkit-linear-gradient(87deg, #f35626, #feab3a);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  -webkit-animation: hue 10s infinite linear;
+  -webkit-animation: hue 12s infinite linear;
 }
 
 .love{
   margin-top: 36px;
 }
 
-.love p{
+.contact .love p{
   color: rgba(1, 29, 40, 0.7);
+}
+
+.love p{
+  color: rgba(247, 247, 247, .3);
   font-size: 12px;
   padding: 24px;
   box-sizing: border-box;
+}
+
+.now{
+  margin-top: 64px;
+}
+
+.now h2{
+  font-size: 36px;
+  color: rgba(247, 247, 247, .6);
+  line-height: 48px;
+  margin-bottom: 24px;
+}
+
+.now h2 span{
+  color: rgba(247, 247, 247, .4);
+}
+
+.now a{
+  background-image: -webkit-linear-gradient(32deg, #32936F, #E3B23C);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-animation: hue 7s infinite linear;
+}
+
+.now p{
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.now p+p{
+  margin-top: 12px;
+}
+
+.now ul{
+  list-style:disc inside;
+}
+
+.now ul li{
+  line-height: 24px;
+  font-size: 18px;
+}
+
+.now span.lu{
+  color: rgba(247, 247, 247, .4);
+  margin-top: 48px;
+  margin-bottom: 64px;
+  display: inline-block;
 }
 
 
