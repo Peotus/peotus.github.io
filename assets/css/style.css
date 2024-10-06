@@ -116,7 +116,11 @@ body {
 #move.big{
   height: 72px;
   border: solid 1px #f7f7f7;
-  background: rgba(255,255,255,0);
+  background: linear-gradient(
+    to right,
+  rgba(255,255,255,0),
+  rgba(255,255,255,0)
+) ;
 }
 
 #main{
@@ -165,21 +169,25 @@ body {
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
-  color: rgba(247, 247, 247, .6);
+  color: rgba(247, 247, 247, .4);
 }
 
 .who h1 span{
-  font-size: 66px;
+  font-size: 68px;
   font-family: "Playfair Display", serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
   color: rgba(247, 247, 247, 1);
+  text-shadow: rgba(109, 236, 226, .24) 0px 0px 18px;
 }
 
 .who h1 a{
-  color: #453478;
+  color: #5feee1;
   text-decoration: none;
+  background-image: -webkit-linear-gradient(128deg, #5feee1, #453478);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .contact{
