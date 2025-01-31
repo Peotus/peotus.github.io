@@ -1,0 +1,23 @@
+---
+layout: default
+title: Posts - Peotus
+---
+
+
+<div class="container">
+  <div class="row">
+  
+      <div class="col offset-m2 m8 s12 posts">
+        <h2><span>/</span>posts</h2>
+
+        <ul>
+          {% for post in site.posts %}
+            <li>
+              <span class="date">{{ post.date | date: "%B %d, %Y" }}</span> <span class="divider">•</span> <a href="{{ post.url }}">{{ post.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+  </div>
+</div>

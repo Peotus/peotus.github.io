@@ -33,7 +33,7 @@ body {
   }
 
   .background {
-    position: absolute;
+    position: fixed;
     top:0px;
     left:0px;
     width: 100vw;
@@ -225,51 +225,102 @@ body {
   box-sizing: border-box;
 }
 
-.now{
+.now, .posts, .post{
   margin-top: 64px;
 }
 
-.now h2{
+.now h2, .posts h2{
   font-size: 36px;
   color: rgba(247, 247, 247, .6);
   line-height: 48px;
   margin-bottom: 24px;
 }
 
-.now h2 span{
+.now h2 span, .posts h2 span{
   color: rgba(247, 247, 247, .4);
 }
 
-.now a{
+.now a , .posts a, .post a, .p-author a {
   background-image: -webkit-linear-gradient(32deg, #32936F, #E3B23C);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   -webkit-animation: hue 7s infinite linear;
 }
 
-.now p{
+.now p, .posts p{
   font-size: 18px;
   line-height: 24px;
 }
 
-.now p+p{
+.now p+p, .posts p+p, .post-content p+p{
   margin-top: 12px;
 }
 
-.now ul{
+.now ul , .posts ul{
   list-style:disc inside;
 }
 
-.now ul li{
+.now ul li, .posts ul li{
   line-height: 24px;
   font-size: 18px;
 }
 
-.now span.lu{
+.posts ul li{
+  list-style: none;
+}
+
+.posts ul li .date{
+  color:rgba(247, 247, 247, .4);
+  font-size:12px;
+}
+
+.posts ul li .divider{
+  color:rgba(247, 247, 247, .4);
+  margin: 0px 8px;
+  display: inline-block;
+}
+
+.posts ul li .date, .posts ul li .divider{
+  position: relative;
+  padding: 4px 0px;
+  top:-3px;
+}
+
+.posts ul li a{
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 24px;
+}
+
+.now span.lu , .posts span.lu{
   color: rgba(247, 247, 247, .4);
   margin-top: 48px;
   margin-bottom: 64px;
   display: inline-block;
+}
+
+.post-title{
+  font-size: 36px;
+  color: rgba(247, 247, 247, .6);
+  line-height: 48px;
+  margin-bottom: 24px;
+}
+
+.post-meta{
+  /* text-align: center; */
+  color: rgba(247, 247, 247, .6);
+  font-size: 12px;
+  margin-top: 18px;
+  display: inline-block;
+}
+
+.post-content{
+  margin:24px 0px;
+}
+
+.post-content p{
+  font-size: 18px;
+  line-height: 28px;
 }
 
 
@@ -381,7 +432,7 @@ body {
     font-size: 12px;
   }
 
-  .now {
+  .now, .posts {
     padding: 36px 24px;
   }
 

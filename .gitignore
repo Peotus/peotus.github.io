@@ -1,1 +1,17 @@
 /birthday/node_modules
+
+
+# Ignora la cartella dei file generati da Jekyll
+_site/
+.jekyll-cache/
+
+# Ignora il file di configurazione locale di Jekyll
+.sass-cache/
+
+# Ignora file temporanei di sistema
+.DS_Store
+Thumbs.db
+
+# Ignora le cartelle di sistema
+.vscode/
+.idea/

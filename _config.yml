@@ -1,0 +1,17 @@
+title: "Peotus - (ex) Web Developer in Verona"
+description: "Hello world"
+baseurl: ""  # Lascialo vuoto se non usi un percorso specifico per la root
+url: "https://peotus.github.io"  # Cambia con il tuo URL GitHub Pages
+
+# Opzioni Jekyll
+markdown: kramdown
+theme: minima  # Usa il tema minima o sostituisci con un altro
+paginate: 5  # Numero di post per pagina
+
+# Per i metadati dei post del blog
+defaults:
+  - scope:
+      path: "posts"
+      type: "posts"
+    values:
+      layout: post
