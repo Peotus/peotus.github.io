@@ -436,4 +436,20 @@ body {
     padding: 36px 24px;
   }
 
+  .posts, .post{
+    margin-top: 24px;
+  }
+
+  .post {
+    padding: 0px 16px;
+  }
+
+  .post-title{
+    font-size: 26px;
+  }
+
+  .post-content{
+    margin: 0px;
+  }
+
 }
