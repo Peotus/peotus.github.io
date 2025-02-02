@@ -15,3 +15,6 @@ Thumbs.db
 # Ignora le cartelle di sistema
 .vscode/
 .idea/
+Gemfile.lock
+_now.html
+_index.html

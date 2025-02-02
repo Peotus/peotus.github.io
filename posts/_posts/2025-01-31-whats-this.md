@@ -5,6 +5,7 @@ date: 2025-01-31 15:58:00
 # categories: 
 ---
 Hello and welcome!
+
 This is my first post, and it's also my first time having a blog.
 
 I'm not yet sure what direction this blog will take. I think it will be a place where I share my experiences with my homelab and similar projects. I want to give back by documenting what I've tried and learned along the way—maybe someone will find it useful, maybe not.
