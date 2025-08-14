@@ -22,6 +22,14 @@ $links.on('mouseenter', function(e){
     $cursor.removeClass('big');
  });
 
+// Ensure .big is always removed when not hovering any link (fix for Firefox)
+$(document).on('mousemove', function(e) {
+    // If the element under the cursor is not a link, remove .big
+    if (!$(e.target).is('.link, .call-to-action, a')) {
+        $cursor.removeClass('big');
+    }
+});
+
  var open=0;
 
  $("#hamburger").on('click', function(e){

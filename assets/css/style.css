@@ -97,11 +97,7 @@ body {
 
 
 #move{
-  background: linear-gradient(
-      to right,
-      #ff8e8e,
-      #ff006a
-  ) ;
+  /* Remove background and border here, move to ::before */
   height: 12px;
   border-radius: 48px;
   border: solid 1px rgba(249, 39, 102, 0);
@@ -110,17 +106,35 @@ body {
   top: 50%;
   transform: translate(-50%, -50%);
   position: fixed;
-  transition: all 0.3s;
+  transition: border 0.4s, height 0.3s;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+#move::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+      to right,
+      #ff8e8e,
+      #ff006a
+  );
+  opacity: 1;
+  transition: opacity 0.3s;
+  z-index: -1;
+  pointer-events: none;
 }
 
 #move.big{
   height: 72px;
   border: solid 1px #f7f7f7;
-  background: linear-gradient(
-    to right,
-  rgba(255,255,255,0),
-  rgba(255,255,255,0)
-) ;
+  /* Remove background here, handled by ::before */
+}
+
+#move.big::before {
+  opacity: 0;
 }
 
 #main{
@@ -160,7 +174,7 @@ body {
   display: none;
 }
 
-.who {
+.who, .contact {
   padding: 220px 0px;
 }
 
@@ -190,40 +204,41 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
-.contact{
-  background-color: #f7f7f7;
-  padding: 64px 0px;
+.contact .btn, .contact .pgp{
+  padding: 48px;
 }
 
-.contact h1, .contact h2, .contact p, .contact a{
-  color:#001D29;
-  font-size: 36px;
-  font-weight: 600;
+.contact .btn{
+  border-right: solid 1px rgba(255,255,255,0.6);
+  text-align: right;
+  padding-top: 78px;
+}
+
+.contact .pgp{
+  opacity: 0.6;
+}
+
+.contact .pgp p{
+  font-family: "Montserrat MS", monospace;
+  font-size: 12px;
+  margin: 12px 0px;
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .contact a{
-  color: #f35626;
+  font-family: "Playfair Display", serif;
   font-weight: 900;
-  background-image: -webkit-linear-gradient(87deg, #f35626, #feab3a);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -webkit-animation: hue 12s infinite linear;
+  font-size: 72px;
+  text-decoration: none;
 }
 
-.love{
-  margin-top: 36px;
+.contact .btn a{
+  color: rgba(255,255,255,0.8);
+  font-family: "Quattrocento Sans", sans-serif;
+  font-weight: 700;
+  font-size:28px;
 }
 
-.contact .love p{
-  color: rgba(1, 29, 40, 0.7);
-}
-
-.love p{
-  color: rgba(247, 247, 247, .3);
-  font-size: 12px;
-  padding: 24px;
-  box-sizing: border-box;
-}
 
 .now, .posts, .post{
   margin-top: 64px;
@@ -235,12 +250,12 @@ body {
   line-height: 48px;
   margin-bottom: 24px;
 }
-
+S
 .now h2 span, .posts h2 span{
   color: rgba(247, 247, 247, .4);
 }
 
-.now a , .posts a, .post a, .p-author a {
+.now a , .posts a, .post a, .p-author a, .contact .pgp a {
   background-image: -webkit-linear-gradient(32deg, #32936F, #E3B23C);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -365,7 +380,7 @@ body {
   }
 
   .header nav ul li a:before{
-    content: "/ ";
+    content: "/";
     color: rgba(247, 247, 247, .4);
   }
 
@@ -426,11 +441,33 @@ body {
   }
 
   .contact {
-    padding: 48px 0px 12px;
+    padding: 124px 16px;
   }
 
-  .contact h1, .contact h2, .contact p, .contact a{
-    font-size: 24px;
+  .contact .btn{
+    border:none;
+    text-align: center;
+  }
+
+  .contact .btn:after{
+    content: "";
+    display: block;
+    position: relative;
+    width: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 1px;
+    background: rgba(255,255,255,0.3);
+    margin-top: 48px;
+    margin-bottom: -60px;
+  }
+
+  .contact .btn a {
+    font-size: 18px;;
+  }
+
+  .contact .pgp a{
+    font-size: 32px;
   }
 
   .love p{
