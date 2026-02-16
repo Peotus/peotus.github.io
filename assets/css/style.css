@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Quattrocento+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Quattrocento+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
 body {
     width: 100vw;
     height: 100vh;
     margin: 0;
-    font-family: "Quattrocento Sans", sans-serif;
+     font-family: "Raleway", sans-serif;
     font-weight: 400;
     font-style: normal;
   }
@@ -179,7 +179,7 @@ body {
 }
 
 .who h1{
-  font-size: 64px;
+  font-size: 58px;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
@@ -188,7 +188,7 @@ body {
 
 .who h1 span{
   font-size: 68px;
-  font-family: "Playfair Display", serif;
+  font-family: "Instrument Serif", serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
