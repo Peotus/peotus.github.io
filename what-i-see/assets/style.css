@@ -1,0 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+@keyframes noise {
+    0%, 100% { background-position: 0 0; }
+    20% { background-position: 50% 50%; }
+    40% { background-position: -50% -50%; }
+    60% { background-position: 50% -50%; }
+    80% { background-position: -50% 50%; }
+}
+
+body {
+    position: relative;
+    overflow: hidden;
+    background-color: #070707;
+    padding: 32px 32px 32px 32px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.25;
+    animation: noise 0.5s steps(1) infinite;
+    z-index: 1001;
+    mix-blend-mode: overlay;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+#content {
+    border-radius: 24px;
+    border: solid 1px black;
+    overflow: hidden;
+    position: relative;
+    flex: 1;
+    margin: 0 auto;
+    width: 100%;
+    max-height: calc(100vh - 60px);
+    /* box-shadow: 0 0 30px rgba(0, 0, 0, 0.5); */
+    z-index: 4;
+}
+  
+
+#noise {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 1; /* Above the dark overlay */
+    width: 100%;
+    height: 100%;
+    filter: contrast(100%) brightness(200%);
+    /* background: 
+      radial-gradient(circle at 50% 50%, rgba(242,76,0,1), rgba(0,0,0,0)),
+      radial-gradient(circle at 76% 76%, rgba(72,86,150,1), rgba(0,255,0,0)),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 186 186' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    transform: translateX(-50%) translateY(-50%); */
+}
+
+
+.dark-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    pointer-events: none;
+}
+
+.img {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    display: block;
+}
+
+.images-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.images-container img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.images-container img.active {
+    opacity: 1;
+}
+
+h1, p {
+    position: relative;
+    z-index: 1003; /* Increased to be above dark overlay */
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 400;
+    text-align: center;
+    margin: 0 auto;
+    padding: 36px 0;
+    transform: scaleX(0.8); /* Compress the font on the x-axis */
+    letter-spacing: -0.05em;
+}
+
+p {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 0 20px;
+    font-size: 1rem;
+    line-height: 1.8;
+    font-family: "Lexend", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    color: rgba(255, 255, 255, 0.6)
+}
+
+#follower {
+    position: absolute;
+    pointer-events: none;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+}
+
+#canvas {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: visible; /* Allow paths to extend beyond SVG bounds */
+}
+
+path {
+    fill: none;
+    stroke-linecap: round;
+    transform-origin: center;
+    vector-effect: non-scaling-stroke;
+}
+
+.blend-soft-light {
+    mix-blend-mode: soft-light;
+}
+
+.blend-exclusion {
+    mix-blend-mode: exclusion;
+}
+
+.blend-difference {
+    mix-blend-mode: difference;
+}
+
+.blend-overlay {
+    mix-blend-mode: overlay;
+}
+
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    transform-origin: center;
+    transition: all 0.1s ease;
+    mix-blend-mode: overlay;
+}
+
+.particle-overlay-black {
+    background-color: rgba(0, 0, 0, 0.6);
+    mix-blend-mode: overlay;
+}
+
+.particle-overlay-white {
+    background-color: rgba(255, 255, 255, 0.6);
+    mix-blend-mode: overlay;
+}
+
+.particle-soft-light-white {
+    background-color: rgba(255, 255, 255, 0.6);
+    mix-blend-mode: soft-light;
+}
+
+.particle-soft-light-black {
+    background-color: rgba(0, 0, 0, 0.6);
+    mix-blend-mode: soft-light;
+}
+
+.particle-difference-black {
+    background-color: rgba(0, 0, 0, 0.6);
+    mix-blend-mode: difference;
+}
+
+.particle-difference-white {
+    background-color: rgba(255, 255, 255, 0.6);
+    mix-blend-mode: difference;
+}
+
+.squiggle {
+    width: 15px;
+    height: 2px;
+    border-radius: 0;
+}
